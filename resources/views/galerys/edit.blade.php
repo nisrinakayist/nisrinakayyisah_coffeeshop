@@ -11,7 +11,7 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="{{ route('galerys.index') }}" 
-                        class="btn btn-primary btn-sm">Back</a>
+                        class="btn btn-menu-add btn-sm">Back</a>
                     </div>
 
                     {{-- @section('modal') --}}
@@ -46,9 +46,18 @@
                                 <input type="text" name="nama_toko" class="form-control" id="inputToko" value="{{ $galery->nama_toko }}"
                                 @error('nama_toko') is-invalid @enderror> --}}
 
-                                <label for="inputRating" class="form-label">Rating</label>
+                                <label for="inputRating" class="form-label d-block text-white">Rating</label>
+                                    <div class="star-rating">
+                                        @for($i = 5; $i >= 1; $i--)
+                                            <input type="radio" id="aditstar{{ $i }}-{{ $galery->id }}" name="rating" value="{{ $i }}" {{ $galery->rating == $i ? 'checked' : '' }}>
+                                            <label for="aditstar{{ $i }}-{{ $galery->id }}" title="{{ $i }} stars">
+                                                <i class="bi bi-star-fill"></i>
+                                            </label>
+                                        @endfor
+                                    </div>
+                                {{-- <label for="inputRating" class="form-label">Rating</label>
                                 <input type="text" name="rating" class="form-control" id="inputRating" value="{{ $galery->rating }}"  
-                                @error('rating') is-invalid @enderror>
+                                @error('rating') is-invalid @enderror> --}}
 
                                 <label for="inputReview" class="form-label">Review</label>
                                 <input type="text" name="review" class="form-control" id="inputReview" value="{{ $galery->review }}"
@@ -62,7 +71,7 @@
 
                         </div>
 
-                        <button type="submit" class="btn btn-warning">Update</button>
+                        <button type="submit" class="btn btn-menu-add">Update</button>
 
                     </form>
 
@@ -72,4 +81,55 @@
         </div>
     </div>
 </div>
+
+<style>
+    .btn-menu{
+            background-color: transparent;
+            border: 2px solid #F3E9DC;
+            color: #F3E9DC;
+        }
+        .btn-menu:hover{
+            background-color: #F3E9DC;
+            color: #703B3B;
+        }
+        .label{
+            font-family: 'sans-serif';
+            font-weight: bold;
+            font-size: 50px;
+            text-align: center;
+        }
+        .tom{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .btn-menu-add{
+            background-color: #F3E9DC;
+            border: 2px solid #F3E9DC;
+            color: #703B3B;
+        }
+     .btn-menu-add:hover{
+            background-color: #703B3B;
+            color: #F3E9DC;
+        }
+     .star-rating{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        }
+    .star-rating input{
+        display: none;
+        }
+    .star-rating label{
+        font-size: 25px;
+        color: #444;
+        cursor: pointer;
+        transition: color 0.2s;
+        }
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: #f39c12;
+        }
+</style>
 @endsection

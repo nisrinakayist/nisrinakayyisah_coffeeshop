@@ -1,24 +1,18 @@
 @extends('layouts.main')
 
 @section('content')
-{{-- <section class="vh-100 gradient-costum"></section> --}}
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-left align-items-start h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                    {{-- <div class="card-header">{{ __('Login') }}</div> --}}
-
                     <div class="card-body">
                         <div class="card2">
                             <p class="mb-0 text-uppercase coffee ">COFFEE JOURNAY</p>
                         </div>
-                            {{-- <div class="mb-md-5 mt-md-4 pb-5"> --}}
-                                <h2 class="mb-2">Every Cup Tells </h2>
-                                <p class="mb-2" id="t2"> a Story.</p>
-                                <p class="pcard2">Susun daftar kedai kopi impian yang ingin Anda kunjungi, dokumentasikan setiap momen lewat foto, dan abadikan ulasan rasa dari setiap sudut kota dalam jurnal digital pribadi Anda. </p>
-                                <a href="{{ url('/galerys') }}" class="btn btn-menu">Review</a>
-                                
-                            {{-- </div> --}}
+                            <h2 class="mb-2">Every Cup Tells </h2>
+                            <p class="mb-2" id="t2"> a Story.</p>
+                            <p class="pcard2">Susun daftar kedai kopi impian yang ingin Anda kunjungi, dokumentasikan setiap momen lewat foto, dan abadikan ulasan rasa dari setiap sudut kota dalam jurnal digital pribadi Anda. </p>
+                            <a href="{{ url('/galerys') }}" class="btn btn-menu">Review</a>
                     </div>
                 </div>
             </div>
@@ -50,8 +44,6 @@
             width: 800px;
             height: 450px;
             gap: 20px;
-            
-    
         }
         .card2 {
            background-color: transparent;
@@ -66,15 +58,6 @@
            justify-content: flex-start;
            padding-left: 15px;
            color: #F3E9DC;
-        }
-        p{
-            /* color: #FFF8F0;
-            font-family: sans-serif;
-            font-size: 15px;
-            line-height: 0.5;
-            text-align: left;
-            margin: 20px; */
-            /* font-weight: bold; */
         }
         .pcard2{
             font-family: sans-serif;
@@ -109,12 +92,6 @@
             margin-top: -30px;
         }
         p.coffee{
-            /* color: #FFF8F0;
-            font-family: sans-serif;
-            font-size: 15px;
-            text-align: left;
-            margin: 20px;
-            font-weight: bold; */
             margin-top: -2px;
             margin bottom: 0px;
         }
@@ -129,5 +106,4 @@
             color: #703B3B;
         }
     </style>
-{{-- </section> --}}
 @endsection
