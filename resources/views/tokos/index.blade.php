@@ -10,7 +10,7 @@
                 <div>
                     @if(Auth()->user()?->level == 'admin')
                         @session('success')
-                        <div class="alert alert-success" role="alert">{{$value}}</div>
+                        <div class="alert alert-success pop" role="alert">{{$value}}</div>
                         @endsession
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -247,6 +247,9 @@
     .star-rating label:hover,
     .star-rating label:hover ~ label {
         color: #f39c12;
+    }
+    .pop{
+        background-color: #F3E9DC;
     }
 </style>
 @endsection

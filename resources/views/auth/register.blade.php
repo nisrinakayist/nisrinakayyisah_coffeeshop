@@ -10,8 +10,6 @@
                             @csrf
                             <div class="mb-md-5 mt-md-4 pb-5">
                                 <h2 class="fw-bold mb-2 text-uppercase">SIGN UP</h2>
-                                {{-- <p class="text-white-50 mb-5">Please enter your login and password!</p> --}}
-
                                 <div data-mdb-input-init class="mb-4">
                                     <label for="typeEmailX" class="form-label text-start d-block">Name</label>
                                     <input id="typeNameX" type="text" class="form-control form-control-lg  @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" >
@@ -21,7 +19,6 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    
                                 </div>
 
                                 <div data-mdb-input-init class="mb-4">
@@ -32,13 +29,8 @@
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
-                                    
+                                    @enderror 
                                 </div>
-            
-                                {{-- <div class="col-md-6">
-                                    
-                                </div> --}}
 
                                 <div data-mdb-input-init class="mb-4">
                                     <label for="typePasswordX" class="form-label text-start d-block">{{ __('Password') }}</label>
@@ -49,18 +41,10 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    
                                 </div>
                                 <div data-mdb-input-init class="mb-4">
                                     <label for="typePasswordX" class="form-label text-start d-block">{{ __('Confirm Password') }}</label>
                                     <input id="typePasswordX" type="password" class="form-control form-control-lg @error('password_confirmation') is-invalid @enderror" name="password_confirmation" value="{{ old('password') }}" required autocomplete="new-password">
-                                    
-                                    {{-- @error('password_confirmation')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror --}}
-                                    
                                 </div>
                                 <label for="typeLevelX" class="form-label text-start d-block">{{ __('Daftar Sebagai') }}</label>
                                 <select name="level" id="" class="form-control">
@@ -68,34 +52,17 @@
                                     <option value="user">User</option>
                                     
                                 </select>
-
-                                {{-- <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" for="level">Daftar Sebagai</button>
-                                    <select for="level" class="dropdown-menu">
-                                    
-                                        <option value="Admin">Admin</option>
-                                        <option value="User">User</option>
-                                    
-                                    </select>
-                                    <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                                </div> --}}
-                                {{-- <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Daftar Sebagai
-                                    </button>
-
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" value="Admin">Admin</a></li>
-                                        <li><a class="dropdown-item" value="User">User</a></li>
-                                    </ul>
-                                </div> --}}
                                 <br>
                                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5 align-center" type="submit">Register</button>
-                                <div class="row mb-0">
+                                <div>
+                                    <p class="mb-0">Already have an account? <a href="{{ route('login') }}" class="text-white-50 fw-bold">Sign In</a>
+                                    </p>
+                                </div>
+                                {{-- <div class="row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{-- <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button> --}}
 
                                 
@@ -152,5 +119,4 @@
             font-size: 1rem;
         }
     </style>
-{{-- </section> --}}
 @endsection

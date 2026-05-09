@@ -19,35 +19,24 @@
 </head>
 <body>
     <div id="app">
-        @if(!Request::is('login'))
+        @if(!Request::is('login') && !Request::is('register') && !Request::is('/') ) 
         <nav class="navbar navbar-expand-md">
             <div class="container">
-                <h3>coffee archive</h3>
+                <h3>Coffee Archive</h3>
+
                 <ul class="navbar-nav ms-auto">
-                <a class="navbar-brand active hover" href="{{ url('/home') }}">
+                <a class="navbar-brand active hover {{ Request::is('home') ? 'active-style' : ''}}" href="{{ url('/home') }}">
                    Home
                 </a>
-                @if(Auth()->user()?->level == 'admin')
-                <a class="navbar-brand active hover" href="{{ url('/menus') }}">
-                 menu
+                <a class="navbar-brand active hover {{ Request::is('menus') ? 'active-style' : ''}}" href="{{ url('/menus') }}">
+                 Menu
                 </a>
-                <a class="navbar-brand active hover" href="{{ url('/tokos') }}">
-                 outlet
+                <a class="navbar-brand active hover {{ Request::is('tokos') ? 'active-style' : ''}}" href="{{ url('/tokos') }}">
+                 Outlet
                 </a>
-                <a class="navbar-brand active hover" href="{{ url('/galerys') }}">
-                 galery
+                <a class="navbar-brand active hover {{ Request::is('galerys') ? 'active-style' : ''}}" href="{{ url('/galerys') }}">
+                 Galery
                 </a>
-            @elseif(Auth()->user()?->level == 'user')
-                <a class="navbar-brand active hover" href="{{ url('/menus') }}">
-                 menu
-                </a>
-                <a class="navbar-brand active hover" href="{{ url('/tokos') }}">
-                 outlet
-                </a>
-                <a class="navbar-brand active hover" href="{{ url('/galerys') }}">
-                 galery
-                </a>
-            @endif 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -89,8 +78,9 @@
                 </ul>
             </div>
         </nav>
-    </div>
         @endif
+    </div>
+        
         <main class="py-4">
             @yield('content')
         </main>
@@ -114,11 +104,31 @@
                 </div>
                 </div>     
         </main>
+        <main>
+            <!-- Button trigger modal -->
+            
+                <!-- Modal -->
+                <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="EditModalLabel">Edit</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                       @yield('modal-edit')
+                    </div>
+                    
+                    </div>
+                </div>
+                </div>     
+        </main>
      <style>
         body{
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255 , 0.5);
             background-filter: blur(10px);
             color: #F2EAE0;
+            /* width: 1000px; */
         }
         .active{
            color: #F2EAE0;
@@ -156,6 +166,37 @@
             font-weight: bold;
             color: #C4A484;
         }
+        .active-style {
+           background-color: transparent;
+           border: 2px solid #F3E9DC;
+           color: #F3E9DC;
+           padding: 5px 15px;
+           font-weight: bold;
+           border-radius: 6rem;
+
+        }
+        .nav-link.hover:hover{
+            color: #f39c12;
+        }
+        .navbar-nav .nav-item.dropdownn .logout{
+            color: #F3E9DC !important;
+        }
+        .logout:focus, .logout:active{
+            color:#F3E9DC !important;
+        }
+        .dropdown-item:hover{
+            background-color: #F3E9DC;
+            color: #4f3f2f;
+            font-weight: bold;
+        }
      </style>
 </body>
+<footer class="bg-body-tertiary text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgb(0, 0, 0);">
+    © 2026 Copyright: ayycoffee
+    {{-- <a class="text-body" style="color: white;" href="https://mdbootstrap.com/">MDBootstrap.com</a> --}}
+  </div>
+  <!-- Copyright -->
+</footer>
 </html>

@@ -83,9 +83,17 @@
 </div>
 
 <style>
+    body {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/1200x/83/ea/49/83ea4988f002a81e18789b188d7f79f9.jpg');
+        background-size: cover;
+        background-positon: center;
+        background-attachment: fixed;
+        height: 100vh;
+        margin: 0;
+    }
     .btn-menu{
             background-color: transparent;
-            border: 2px solid #F3E9DC;
+            border: 2px solid #F3E9DC; 
             color: #F3E9DC;
         }
         .btn-menu:hover{

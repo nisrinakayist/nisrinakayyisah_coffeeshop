@@ -7,10 +7,10 @@
             <div>
                 <div class="label">{{ __('Galery') }}</div>
 
-                <div class="card-body">
+                 <div class="card-body">
                     @if(Auth()->user()?->level == 'admin')
                         @session('success')  
-                        <div class="alert alert-success" role="alert">{{$value}}</div>
+                        <div class="alert alert-success pop" role="alert">{{$value}}</div>
                         @endsession
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -18,7 +18,7 @@
                                 + Add Picture
                             </button>
                         </div>
-
+                        <br>
                         @section('modal')
                         <form action="{{ route('galerys.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -67,9 +67,9 @@
                         @endsection
                         <div class="layout">
                             @forelse ($galerys as $galery)
-                                <div class="card" style="width: 9rem;">
+                                <div class="card" style="width: 12rem;">
                                     @if ($galery->image)
-                                        <img src="{{ asset('storage/'.$galery->image) }}" height="130" width="100" class="card-img-top">
+                                        <img src="{{ asset('storage/'.$galery->image) }}" height="180" width="100" class="card-img-top">
                                             @else
                                             <span>No cover</span>
                                             @endif
@@ -115,9 +115,9 @@
                     @elseif(Auth()->user()?->level == 'user')
                         <div class="layout">
                             @forelse ($galerys as $galery)
-                                <div class="card" style="width: 9rem;">
+                                <div class="card" style="width: 12rem;">
                                     @if ($galery->image)
-                                        <img src="{{ asset('storage/'.$galery->image) }}" height="130" width="100" class="card-img-top">
+                                        <img src="{{ asset('storage/'.$galery->image) }}" height="180" width="100" class="card-img-top">
                                             @else
                                                 <span>No cover</span>
                                             @endif
@@ -210,5 +210,9 @@
     .star-rating label:hover ~ label {
         color: #f39c12;
     }
+    .pop{
+        background-color: #F3E9DC;
+    }
 </style>
+
 @endsection

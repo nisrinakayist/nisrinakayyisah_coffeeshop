@@ -10,7 +10,7 @@
                 <div class="card-body">
                     @if(Auth()->user()?->level == 'admin')
                         @session('success')
-                        <div class="alert alert-success" role="alert">{{$value}}</div>
+                        <div class="alert alert-success pop" role="alert">{{$value}}</div>
                         @endsession
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -18,7 +18,7 @@
                                 + Add menu
                             </button>
                         </div>
-
+                        <br>
                         @section('modal')
                         <form action="{{ route('menus.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -54,14 +54,14 @@
 
                         <div class="layout">
                             @forelse ($menus as $menu)
-                                <div class="card" style="width: 9rem;">
+                                <div class="card" style="width: 12rem;">
                                     @if ($menu->image)
-                                        <img src="{{ asset('storage/'.$menu->image) }}" height="130" width="100" class="card-img-top">
+                                        <img src="{{ asset('storage/'.$menu->image) }}" height="180" width="100" class="card-img-top">
                                             @else
                                             <span>No cover</span>
                                             @endif
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ $menu->jenis }}</h5>
+                                        <h5 class="card-title fw-bold">{{ $menu->jenis }}</h5>
                                         <p class="card-text"> {{ $menu->description }}</p>
                                     </div>
                                 </div> 
@@ -123,9 +123,9 @@
                         @elseif(Auth()->user()?->level == 'user')
                             <div class="layout"> 
                                 @forelse ($menus as $menu)
-                                    <div class="card" style="width: 9rem;">
+                                    <div class="card" style="width: 12rem;">
                                         @if ($menu->image)
-                                                    <img src="{{ asset('storage/'.$menu->image) }}" height="130" width="100" class="card-img-top">
+                                                    <img src="{{ asset('storage/'.$menu->image) }}" height="180" width="100" class="card-img-top">
                                                     @else
                                                     <span>No cover</span>
                                                     @endif
@@ -196,6 +196,9 @@
         .btn-menu-add:hover{
             background-color: #703B3B;
             color: #F3E9DC;
+        }
+        .pop{
+        background-color: #F3E9DC;
         }
 </style>
 
