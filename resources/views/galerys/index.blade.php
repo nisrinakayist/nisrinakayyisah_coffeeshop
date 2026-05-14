@@ -33,8 +33,8 @@
                                 <span class="input-text" id="inputToko">Nama Toko</span>
                                 <select name="nama_toko" id="inputToko" class="form-control" @error('nama_toko') is-invalid @enderror>
                                     <option> -- Pilih Nama Toko --</option>
-                                        @foreach ($toko as $id => $toko)
-                                            <option value="{{ $toko }}">{{ $toko }}</option>
+                                        @foreach ($toko as $id => $nama)
+                                            <option value="{{ $nama }}">{{ $nama }}</option>
                                         @endforeach
                                 </select>
                                 @error('nama_toko')
@@ -78,7 +78,7 @@
                                         <p class="card-text"> 
                                             <div class="text-warning">
                                                 @for($i = 1; $i <= 5; $i++)
-                                                    @if($i <= $galery-> rating)
+                                                    @if($i <= $galery->rating)
                                                         <i class="bi bi-star-fill"></i> 
                                                     @else
                                                         <i class="bi bi-star text-secondary"></i>
@@ -90,11 +90,16 @@
                                     </div>
                                 </div> 
                                 <div class="tom">
-                                    <a href="{{ route('galerys.edit', $galery->id) }}" class="btn btn-menu">
+                                    <button class="btn btn-menu" data-bs-toggle="modal" data-bs-target="#EditModal{{ $galery->id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
                                         </svg>
-                                    </a>
+                                    </button>
+                                    {{-- <a href="{{ route('galerys.edit', $galery->id) }}" class="btn btn-menu">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                        </svg>
+                                    </a> --}}
                                     <form action="{{ route('galerys.destroy',$galery->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -106,6 +111,78 @@
                                         </button>
                                     </form>
                                 </div>
+                                <div class="modal fade" id="EditModal{{ $galery->id }}" tabindex="-1" aria-labelledby="EditModalLabel{{ $galery->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="EditModalLabel{{ $galery->id }}">Edit</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="{{ route('galerys.update', $galery->id ) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="mb-3">
+                                            <label for="inputImage" class="form-label">Image</label>
+                                            {{-- <input type="file" name="image" class="form-control" id="inputImage" value="{{ $galery->image }}" 
+                                            @error('image') is-invalid @enderror> --}}
+                                            <br>
+                                            @if($galery->image)
+                                            <img src="{{ asset('storage/'.$galery->image) }}" width="120">
+                                            @endif
+                                            <br>
+                                            <br>
+                                            <input type="file" name="image">
+                                            <br>
+
+                                            <span class="input-text" id="inputToko">Nama Toko</span>
+                                            <select name="nama_toko" id="inputToko" class="form-control" value="{{ $galery->nama_toko }}" @error('nama_toko') is-invalid @enderror>
+                                                <option> -- Pilih Nama Toko --</option>
+                                                @foreach ($toko as $id => $nama)
+                                                <option value="{{ $nama }}" {{ $galery->nama_toko == $nama ? 'selected' : '' }}>{{ $nama }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('nama_toko')
+                                            <div id="inputToko" class="form-text text-danger">{{ $message }}</div>
+                                            @enderror
+
+                                            {{-- <label for="inputToko" class="form-label">Nama Toko</label>
+                                            <input type="text" name="nama_toko" class="form-control" id="inputToko" value="{{ $galery->nama_toko }}"
+                                            @error('nama_toko') is-invalid @enderror> --}}
+
+                                            <label for="inputRating" class="form-label d-block text-white">Rating</label>
+                                                <div class="star-rating">
+                                                    @for($i = 5; $i >= 1; $i--)
+                                                        <input type="radio" id="aditstar{{ $i }}-{{ $galery->id }}" name="rating" value="{{ $i }}" {{ $galery->rating == $i ? 'checked' : '' }}>
+                                                        <label for="aditstar{{ $i }}-{{ $galery->id }}" title="{{ $i }} stars">
+                                                            <i class="bi bi-star-fill"></i>
+                                                        </label>
+                                                    @endfor
+                                                </div>
+                                            {{-- <label for="inputRating" class="form-label">Rating</label>
+                                            <input type="text" name="rating" class="form-control" id="inputRating" value="{{ $galery->rating }}"  
+                                            @error('rating') is-invalid @enderror> --}}
+
+                                            <label for="inputReview" class="form-label">Review</label>
+                                            <input type="text" name="review" class="form-control" id="inputReview" value="{{ $galery->review }}"
+                                            @error('review') is-invalid @enderror>
+
+                                        
+
+                                        {{-- <label for="inputImage" class="from-label">Image</label>
+                                        <input type="file" name="image" class="form-control" id="inputImage" accept="image/*"
+                                        @error('image') in-valid @enderror> --}}
+
+                                    </div>
+
+                                    <button type="submit" class="btn btn-menu-add">Update</button>
+
+                                </form>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                                </div>  
                             @empty
                                 <p>There are no data</p> 
                             @endforelse
