@@ -64,24 +64,34 @@
                                         <h5 class="card-title fw-bold">{{ $menu->jenis }}</h5>
                                         <p class="card-text"> {{ $menu->description }}</p>
                                     </div>
-                                </div> 
-                                <div class="tom">
-                                    <a href="{{ route('menus.edit', $menu->id) }}" class="btn btn-menu" data-bs-toggle="modal" data-bs-target="#EditMenuModal{{ $menu->id }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-                                        </svg>
-                                    </a>
-                                    <form action="{{ route('menus.destroy',$menu->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-menu" onclick="return confirm('Are you sure want to delete this {{ $menu->jenis}}?'); ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                            </svg>
+                                    <div class="dropdown card-actions">
+                                        <button class="btn btn-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                           <i class="bi bi-three-dots-vertical"></i>
                                         </button>
-                                    </form>
-                                </div>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                 <a href="{{ route('menus.edit', $menu->id) }}" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditMenuModal{{ $menu->id }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li>
+                                               <form action="{{ route('menus.destroy',$menu->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="dropdown-item " type="submit"  onclick="return confirm('Are you sure want to delete this {{ $menu->jenis}}?'); ">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                                        </svg>
+                                                    </button>
+                                                </form> 
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> 
+                                
                                 <div class="modal fade" id="EditMenuModal{{ $menu->id }}" tabindex="-1" aria-labelledby="EditTokoModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -157,35 +167,57 @@
         overflow-x: hidden;
     }
 
-    .container{
+    .container {
         width: 100%;
     }
 
-    .layout{
-        display: flex;
-        flex-wrap: wrap;
+    /* ================= LAYOUT GRID ASLI (CLEAN & OTOMATIS KESAMPING) ================= */
+    .layout {
+        display: grid;
+        /* Otomatis membagi kolom ke samping dengan ukuran stabil minimal 220px */
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 30px;
-        justify-content: center;
-        align-items: flex-start;
+        justify-items: center;
+        align-items: stretch;
+        padding: 20px;
     }
 
-    .card{
-        width: 12rem !important;
-        overflow: hidden;
+    /* ================= CARD STABIL & RAPI ================= */
+    .card {
+        width: 100% !important;
+        max-width: 280px; /* Batas maksimal ukuran card agar tetap proporsional */
+        min-height: 440px;
         border-radius: 18px;
-        flex-shrink: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        /* height: 100%; */
+        position: relative;
+        background-color: #ffffff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
-    .card-img-top{
+    .card-img-top {
         width: 100%;
+        height: 250px;
         object-fit: cover;
+        display: block;
     }
 
-    .card-body{
-        word-wrap: break-word;
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex: 1;
+        padding: 20px;
+        height: 100%;
     }
 
-    .btn-menu{
+    /* .card-body > *:last-child{
+        margin-top: auto;
+    } */
+
+    .btn-menu {
         background-color: transparent;
         border: 2px solid #F3E9DC;
         color: #F3E9DC;
@@ -193,12 +225,12 @@
         white-space: nowrap;
     }
 
-    .btn-menu:hover{
+    .btn-menu:hover {
         background-color: #F3E9DC;
         color: #703B3B;
     }
 
-    .label{
+    .label {
         font-family: 'sans-serif';
         font-weight: bold;
         font-size: 50px;
@@ -207,7 +239,7 @@
         word-wrap: break-word;
     }
 
-    .tlabel{
+    .tlabel {
         color: #FFF8F0;
         font-family: sans-serif;
         font-size: 15px;
@@ -215,167 +247,168 @@
         text-align: center;
     }
 
-    .tom{
+    .tom {
         display: flex;
-        flex-direction: column;
-        gap: 5px;
+        flex-direction: row;
+        gap: 10px;
         justify-content: center;
+        margin-top: auto;
+        padding: 10px;
+        align-items: center;
     }
 
-    .btn-menu-add{
+    .btn-menu-add {
         background-color: #F3E9DC;
         border: 2px solid #F3E9DC;
         color: #703B3B;
         transition: all 0.3s ease;
     }
 
-    .btn-menu-add:hover{
+    .btn-menu-add:hover {
         background-color: #703B3B;
         color: #F3E9DC;
     }
 
-    .pop{
+    .pop {
         background-color: #F3E9DC;
     }
 
-    .modal-dialog{
+    .modal-dialog {
         max-width: 500px;
     }
 
-    .form-control{
+    .form-control {
         width: 100%;
     }
 
-    .pagination{
+    .pagination {
         justify-content: center;
         flex-wrap: wrap;
         margin-top: 25px;
     }
 
-    /* ================= TABLET ================= */
+    .card-actions {
+        display: flex;
+        gap: 8px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 10;
+    }
 
-    @media (max-width: 992px){
+    /* ================= FIX DROPDOWN: SAMING-SAMPINGAN & SEMBUNYI AWAL ================= */
+    .dropdown-menu {
+        /* JANGAN pakai display: flex di sini agar disembunyikan oleh Bootstrap saat awal */
+        flex-direction: row !important;   /* Mengunci isi item ke samping */
+        gap: 8px;                         /* Jarak antar ikon */
+        min-width: auto !important;       
+        width: max-content !important;    /* Kotak pas membungkus ikon */
+        padding: 6px 8px !important;      
+        border-radius: 12px;
+        background-color: #ffffff;         
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border: 1px solid rgba(0,0,0,0.1); 
+    }
 
-        .layout{
+    /* Pemicu dari Bootstrap: Hanya berubah jadi flex kesamping saat diklik (muncul .show) */
+    .dropdown-menu.show {
+        display: flex !important; 
+    }
+
+    .dropdown-item {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        padding: 6px !important;           
+        width: auto !important;
+        background: transparent !important;
+        color: #333333;
+        border-radius: 6px;
+        transition: background 0.2s; 
+    }
+
+    .dropdown-item:hover {
+        background-color: #f0f0f0 !important;
+    }
+
+    .dropdown-item:last-child:hover {
+        background-color: #ffe5e5 !important;
+        color: #ff4d4d;
+    }
+
+    /* ================= TABLET RESPONSIVE ================= */
+    @media (max-width: 992px) {
+        .layout {
             gap: 25px;
         }
 
-        .label{
+        .label {
             font-size: 42px;
-        }
-
-        .card{
-            width: 11rem !important;
         }
     }
 
-    /* ================= MOBILE ================= */
-
-    @media (max-width: 768px){
-
-        .container{
-            padding-left: 15px;
-            padding-right: 15px;
+    /* ================= MOBILE RESPONSIVE ================= */
+    @media (max-width: 768px) {
+        .container {
+            padding-left: 20px;
+            padding-right: 20px;
         }
 
-        .label{
+        .label {
             font-size: 32px;
             margin-bottom: 25px;
         }
 
-        .layout{
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            justify-items: center;
+        .layout {
+            grid-template-columns: 1fr !important /* Tetap bagi 2 kolom rapi di HP */
+            gap: 25px;
+            padding: 10px 0;
         }
 
-        .card{
-            width: 100% !important;
-            max-width: 180px;
+        .card {
+            max-width: 100% !important; /* Biar flexibel mengikuti grid */
+            min-height: auto;
         }
 
-        .card-body{
-            padding: 14px;
+        .card-img-top{
+            height: 250px;
         }
 
-        .card-title{
-            font-size: 16px;
+        .card-body {
+            padding: 16px;
         }
 
-        .card-text{
+        .card-title {
+            font-size: 18px;
+        }
+
+        .card-text {
             font-size: 14px;
         }
 
-        .tom{
-            flex-direction: row;
-            justify-content: center;
-            gap: 8px;
-            margin-top: -10px;
+        .tom {
+            gap: 10px;
+            padding-top: 15px;
+            margin-top: auto;
         }
 
-        .btn-menu{
-            font-size: 14px;
-            padding: 6px 10px;
-        }
-
-        .btn-menu-add{
-            width: 100%;
-        }
-
-        .modal-dialog{
-            margin: 1rem;
-        }
-
-        .pagination{
-            gap: 5px;
+        .btn-menu {
+            font-size: 13px;
+            padding: 5px 8px;
         }
     }
 
-    /* ================= SMALL MOBILE ================= */
-
-    @media (max-width: 480px){
-
-        .label{
+    /* ================= SMALL MOBILE RESPONSIVE ================= */
+    @media (max-width: 480px) {
+        .label {
             font-size: 25px;
         }
 
-        .layout{
-            grid-template-columns: 1fr;
-            gap: 22px;
-        }
-
-        .card{
-            max-width: 220px;
-        }
-
-        .card-title{
-            font-size: 15px;
-        }
-
-        .card-text{
-            font-size: 13px;
-        }
-
-        .btn-menu{
-            font-size: 13px;
-            padding: 5px 10px;
-        }
-
-        .modal-content{
-            padding: 5px;
-        }
-
-        .form-label{
-            font-size: 14px;
-        }
-
-        .form-control{
-            font-size: 14px;
-        }
-
-        .pagination{
-            font-size: 13px;
+        .layout {
+            /* Kunci menjadi 2 kolom ke samping di HP kecil agar tidak turun kebawah tunggal */
+            grid-template-columns: 1fr !important; 
+            gap: 20px;
+            padding: 10px;
         }
     }
 </style>
