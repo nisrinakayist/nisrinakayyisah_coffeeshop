@@ -81,17 +81,17 @@
                                                 @endfor
                                             </div>
                                         </div>
-                                        <div class="col-1 text-secondary">
-                                                <button type="button" class="btn btn-menu" data-bs-toggle="modal" data-bs-target="#EditTokoModal{{ $toko->id }}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-                                                    </svg>
-                                                </button>
-                                        </div>
-                                        <div class="col-1 text-secondary">
+                                        <div class="col-1 text-secondary action-btn">
+                                            <button type="button" class="btn btn-menu" data-bs-toggle="modal" data-bs-target="#EditTokoModal{{ $toko->id }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                                </svg>
+                                            </button>
+
                                             <form action="{{ route('tokos.destroy',$toko->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
+
                                                 <button type="submit" class="btn btn-menu" onclick="return confirm('Are you sure want to delete this {{ $toko->nama_toko}}?');">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -191,65 +191,290 @@
     body {
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/1200x/83/ea/49/83ea4988f002a81e18789b188d7f79f9.jpg');
         background-size: cover;
-        background-positon: center;
+        background-position: center;
         background-attachment: fixed;
-        height: 100vh;
+        min-height: 100vh;
         margin: 0;
+        overflow-x: hidden;
     }
+
+    .container{
+        width: 100%;
+    }
+
     .btn-menu {
         background-color: transparent;
         border: 2px solid #F3E9DC;
         color: #F3E9DC;
+        transition: all 0.3s ease;
+        white-space: nowrap;
     }
+
     .btn-menu:hover{
         background-color: #F3E9DC;
         color: #703B3B;
     }
+
     .label{
         font-family: 'sans-serif';
         font-weight: bold;
         font-size: 50px;
         text-align: center;
+        margin-bottom: 20px;
+        word-wrap: break-word;
     }
+
     .ctable{
         background-color: transparent !important;
         font-weight: bold;
         font-size: 20px;
+        width: 100%;
     } 
+
     .text{
         color: #F3E9DC;
         font-size: 25px;
     }
+
     .btn-menu-add{
         background-color: #F3E9DC;
         border: 2px solid #F3E9DC;
         color: #703B3B;
+        transition: all 0.3s ease;
     }
+
     .btn-menu-add:hover{
         background-color: #703B3B;
         color: #F3E9DC;
     }
+
     .star-rating{
         display: flex;
         flex-direction: row-reverse;
         justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 3px;
     }
+
     .star-rating input{
         display: none;
     }
+
     .star-rating label{
         font-size: 25px;
         color: #444;
         cursor: pointer;
         transition: color 0.2s;
     }
+
     .star-rating input:checked ~ label,
     .star-rating label:hover,
     .star-rating label:hover ~ label {
         color: #f39c12;
     }
+
     .pop{
         background-color: #F3E9DC;
     }
+
+    .row.align-items-center{
+        margin: 0;
+        width: 100%;
+    }
+
+    .border-bottom{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .bi-geo-alt-fill{
+        font-size: 3rem;
+    }
+
+    .modal-dialog{
+        max-width: 500px;
+    }
+
+    .form-control{
+        width: 100%;
+    }
+
+    /* ====================== TABLET ====================== */
+
+    @media (max-width: 992px){
+
+        .label{
+            font-size: 42px;
+        }
+
+        .ctable{
+            font-size: 18px;
+        }
+
+        .text{
+            font-size: 22px;
+        }
+
+        .bi-geo-alt-fill{
+            font-size: 2.5rem !important;
+        }
+    }
+
+    /* ================= MOBILE CLEAN LAYOUT ================= */
+
+@media (max-width: 768px){
+
+    .table-responsive{
+        overflow: hidden;
+    }
+
+    .row.align-items-center{
+        background: rgba(255,255,255,0.06);
+        border-radius: 20px;
+        padding: 18px 15px !important;
+        margin-bottom: 18px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center !important;
+        text-align: center;
+        gap: 12px;
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(5px);
+    }
+
+    /* icon location */
+    .row.align-items-center .col-1:first-child{
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .bi-geo-alt-fill{
+        font-size: 2.7rem !important;
+    }
+
+    /* nama toko + tombol */
+    .row.align-items-center .col-3{
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .row.align-items-center span{
+        font-size: 20px;
+    }
+
+    /* rating */
+    .text-warning{
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        font-size: 18px;
+    }
+
+    /* tombol edit + delete */
+    .row.align-items-center .col-1 form{
+        display: flex;
+        justify-content: center;
+    }
+
+    .row.align-items-center .col-1:last-child,
+    .row.align-items-center .col-1:nth-last-child(2){
+        width: auto;
+        flex: unset;
+    }
+
+    /* wrapper tombol action */
+    .row.align-items-center{
+        position: relative;
+    }
+
+    .row.align-items-center .col-1:nth-last-child(2),
+    .row.align-items-center .col-1:last-child{
+        display: inline-flex;
+        margin-top: -5px;
+    }
+
+    .btn-menu{
+        padding: 7px 14px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+
+    .label{
+        font-size: 30px;
+        margin-bottom: 25px;
+    }
+
+    .d-grid.gap-2{
+        justify-content: center !important;
+    }
+
+    .btn-menu-add{
+        width: 100%;
+    }
+
+    .modal-dialog{
+        margin: 1rem;
+    }
+
+    .pagination{
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width: 480px){
+
+    .row.align-items-center{
+        padding: 16px 12px !important;
+        border-radius: 18px;
+    }
+
+    .label{
+        font-size: 25px;
+    }
+
+    .row.align-items-center span{
+        font-size: 18px;
+    }
+
+    .text-warning{
+        font-size: 16px;
+    }
+
+    .btn-menu{
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+
+    .bi-geo-alt-fill{
+        font-size: 2.3rem !important;
+    }
+    .action-btn{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .action-btn form{
+        margin: 0;
+    }
+
+    @media (max-width: 768px){
+
+    .action-btn{
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        margin-top: 5px;
+    }
+}
+}
+
 </style>
 @endsection

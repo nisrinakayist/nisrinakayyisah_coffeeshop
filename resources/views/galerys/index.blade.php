@@ -229,66 +229,262 @@
     body {
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/1200x/83/ea/49/83ea4988f002a81e18789b188d7f79f9.jpg');
         background-size: cover;
-        background-positon: center;
+        background-position: center;
         background-attachment: fixed;
-        height: 100vh;
+        min-height: 100vh;
         margin: 0;
+        overflow-x: hidden;
     }
+
+    .container{
+        width: 100%;
+    }
+
     .layout {
         display: flex;
         flex-wrap: wrap;
         gap: 30px;
+        justify-content: center;
+        align-items: flex-start;
     }
+
+    .card{
+        width: 12rem !important;
+        overflow: hidden;
+        border-radius: 18px;
+        flex-shrink: 0;
+    }
+
+    .card-img-top{
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .card-body{
+        word-wrap: break-word;
+    }
+
     .btn-menu {
         background-color: transparent;
         border: 2px solid #F3E9DC;
         color: #F3E9DC;
+        transition: all 0.3s ease;
+        white-space: nowrap;
     }
+
     .btn-menu:hover {
         background-color: #F3E9DC;
         color: #703B3B;
     }
+
     .label{
         font-family: 'sans-serif';
         font-weight: bold;
         font-size: 50px;
         text-align: center;
+        margin-bottom: 20px;
+        word-wrap: break-word;
     }
+
     .tom{
         display: flex;
         flex-direction: column;
         gap: 5px;
+        justify-content: center;
     }
+
     .btn-menu-add{
         background-color: #F3E9DC;
         border: 2px solid #F3E9DC;
         color: #703B3B;
+        transition: all 0.3s ease;
     }
+
     .btn-menu-add:hover{
         background-color: #703B3B;
         color: #F3E9DC;
     }
+
     .star-rating{
         display: flex;
         flex-direction: row-reverse;
         justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 3px;
     }
+
     .star-rating input{
         display: none;
     }
+
     .star-rating label{
         font-size: 25px;
         color: #444;
         cursor: pointer;
         transition: color 0.2s;
     }
+
     .star-rating input:checked ~ label,
     .star-rating label:hover,
     .star-rating label:hover ~ label {
         color: #f39c12;
     }
+
+    .text-warning{
+        font-size: 16px;
+    }
+
     .pop{
         background-color: #F3E9DC;
+    }
+
+    .modal-dialog{
+        max-width: 500px;
+    }
+
+    .form-control{
+        width: 100%;
+    }
+
+    .pagination{
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 25px;
+    }
+
+    /* ================= TABLET ================= */
+
+    @media (max-width: 992px){
+
+        .layout{
+            gap: 25px;
+        }
+
+        .label{
+            font-size: 42px;
+        }
+
+        .card{
+            width: 11rem !important;
+        }
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 768px){
+
+        .container{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .label{
+            font-size: 32px;
+            margin-bottom: 25px;
+        }
+
+        .layout{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .card{
+            width: 100% !important;
+            max-width: 180px;
+        }
+
+        .card-body{
+            padding: 14px;
+        }
+
+        .card-title{
+            font-size: 16px;
+        }
+
+        .card-text{
+            font-size: 14px;
+        }
+
+        .tom{
+            flex-direction: row;
+            justify-content: center;
+            gap: 8px;
+            margin-top: -10px;
+        }
+
+        .btn-menu{
+            font-size: 14px;
+            padding: 6px 10px;
+        }
+
+        .btn-menu-add{
+            width: 100%;
+        }
+
+        .modal-dialog{
+            margin: 1rem;
+        }
+
+        .star-rating{
+            justify-content: center;
+        }
+
+        .pagination{
+            gap: 5px;
+        }
+    }
+
+    /* ================= SMALL MOBILE ================= */
+
+    @media (max-width: 480px){
+
+        .label{
+            font-size: 25px;
+        }
+
+        .layout{
+            grid-template-columns: 1fr;
+            gap: 22px;
+        }
+
+        .card{
+            max-width: 220px;
+        }
+
+        .card-title{
+            font-size: 15px;
+        }
+
+        .card-text{
+            font-size: 13px;
+        }
+
+        .btn-menu{
+            font-size: 13px;
+            padding: 5px 10px;
+        }
+
+        .star-rating label{
+            font-size: 20px;
+        }
+
+        .modal-content{
+            padding: 5px;
+        }
+
+        .form-label{
+            font-size: 14px;
+        }
+
+        .form-control{
+            font-size: 14px;
+        }
+
+        .pagination{
+            font-size: 13px;
+        }
     }
 </style>
 
