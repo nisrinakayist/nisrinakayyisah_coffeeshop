@@ -47,4 +47,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function likedMenus() 
+    {
+        return $this->belongsToMany(Menu::class, 'likes', 'user_id', 'menu_id');
+    }
 }

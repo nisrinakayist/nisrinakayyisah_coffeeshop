@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </form>
-
+                
                 <div class="card-body">
                     @if(Auth()->user()?->level == 'admin')
                         @session('success')
@@ -55,9 +55,9 @@
                         <form action="{{ route('menus.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="md-3">            
-                                <label for="inputJenis" class="form-label">Jenis Coffee</label>
+                                <label for="inputJenis" class="form-label">Menu Coffee</label>
                                 <input type="text" name="jenis" class="form-control" @error('jenis') is-invalid @enderror 
-                                id="inputJenis" placeholder="Masukkan Jenis">
+                                id="inputJenis" placeholder="Masukkan Menu">
                                 @error('jenis')
                                 <div id="inputJenis" class="form-text text-danger">{{ $message }}</div>
                                 @enderror
@@ -109,10 +109,10 @@
                                                 </a>
                                             </li>
                                             <li>
-                                               <form action="{{ route('menus.destroy',$menu->id) }}" method="POST">
+                                               <form action="{{ route('menus.destroy',$menu->id) }}" method="POST" class="delete-form">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="dropdown-item " type="submit"  onclick="return confirm('Are you sure want to delete this {{ $menu->jenis}}?'); ">
+                                                    <button class="dropdown-item " type="submit" data-jenis="{{ $menu->jenis }}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
@@ -163,9 +163,35 @@
                         </div>
                         {{ $menus->links() }}
                         @elseif(Auth()->user()?->level == 'user')
+                            <div class="mb-4 d-flex gap-2">
+                                <a href="{{ route('menus.filter') }}" class="btn btn-outline-secondary {{ !request('filter') ? 'active' : '' }}">
+                                    <i class="bi bi-globe2"></i> All Menu
+                                </a>
+                                <a href="{{ route('menus.filter', ['filter' => 'liked']) }}" class="btn btn-outline-danger {{ request('filter') == 'liked' ? 'active' : '' }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" stroke="#dc3545" stroke-width="1.5" class="bi bi-heart" viewBox="0 0 16 16" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3)); transition: transform 0.2s;">
+                                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01z"/>
+                                                        </svg> Favorit Saya
+                                </a>
+                            </div>
                             <div class="layout"> 
                                 @forelse ($menus as $menu)
                                     <div class="card" style="width: 12rem;">
+                                        <div class="position-absolute" style="top: 10px; right: 10px; z-index: 10;">
+                                            <form action="{{ route('menus.like', $menu->id) }}" method="POST" class="m-0">
+                                                @csrf
+                                                <button type="submit" class="btn p-0 border-0 bg-transparent" style="outline: none; box-shadow: none;">
+                                                    @if(Auth::user()->likedMenus()->where('menu_id', $menu->id)->exists())
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#dc3545" class="bi bi-heart-fill animate__animated animate__bounceIn" viewBox="0 0 16 16" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.2));">
+                                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                                        </svg>
+                                                    @else
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" stroke="#dc3545" stroke-width="1.5" class="bi bi-heart" viewBox="0 0 16 16" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3)); transition: transform 0.2s;">
+                                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01z"/>
+                                                        </svg>
+                                                    @endif
+                                                </button>
+                                            </form>
+                                        </div>
                                         @if ($menu->image)
                                                     <img src="{{ asset('storage/'.$menu->image) }}" height="180" width="100" class="card-img-top">
                                                     @else
@@ -175,6 +201,7 @@
                                             <h5 class="card-title">{{ $menu->jenis }}</h5>
                                             <p class="card-text"> {{ $menu->description }}</p>
                                         </div>
+                                        
                                     </div> 
                                 @empty
                                     <p>There are no data</p> 
@@ -446,3 +473,36 @@
 </style>
 
 @endsection
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+    document.addEventListener('click', function(e) {
+        const button = e.target.closest('.delete-form button');
+
+        if (!button) return;
+
+        e.preventDefault();
+
+        const form = button.closest('.delete-form');
+
+        const jenisMenu = button.getAttribute('data-jenis');
+
+        Swal.fire({
+            title: 'Are you sure want to delete this menu?',
+            html: '<b>' +jenisMenu '</b> akan terhapus permanen',
+            text: "Data ini tidak bisa dikembalikan ☕",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#6f4e37',
+            cancelButtonColor: '#999',
+            confirmButtonText: 'Yes, delete it',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+    </script>
+@endpush

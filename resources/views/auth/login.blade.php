@@ -16,8 +16,11 @@
                                     <label for="typeEmailX" class="form-label text-start d-block">Email</label>
                                     <input id="typeEmailX" type="email" class="form-control form-control-lg" name="email">
                                     @error('email')
-                                        <span class="invalid-feedback text-start d-block" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                        <span class="alert alert-danger py-2 px-3 mt-2 rounded-3 border-0 d-flex align-items-center" role="alert" style="font-size: 0.85rem;">
+                                            <i class="bi bi-exlamation-triangle-fill me-2"></i>
+                                            <div>
+                                                {{ $message }}
+                                            </div>
                                         </span>
                                     @enderror
                                 </div>
@@ -26,8 +29,11 @@
                                     <label for="typePasswordX" class="form-label text-start d-block">{{ __('Password') }}</label>
                                     <input id="typePasswordX" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="current-password">
                                     @error('password')
-                                        <span class="invalid-feedback text-start d-block" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                        <span class="alert alert-danger py-2 px-3 mt-2 rounded-3 border-0 d-flex align-items-center" role="alert" style="font-size: 0.85rem;">
+                                           <i class="bi bi-exlamation-triangle-fill me-2"></i>
+                                            <div>
+                                                {{ $message }}
+                                            </div>
                                         </span>
                                     @enderror
                                 </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Toko;
+use App\Models\Galery;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $totalToko = Toko::count();
+        $totalDikunjungi = Galery::distinct('id')->count('id');
+        $totalBelumDikunjungi = $totalToko - $totalDikunjungi;
+        return view('home', compact('totalToko', 'totalDikunjungi', 'totalBelumDikunjungi'));
     }
 }

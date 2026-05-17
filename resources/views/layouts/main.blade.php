@@ -367,7 +367,7 @@
         </div>
 
     </main>
-
+@stack('scripts')
 </body>
 
 <footer class="bg-body-tertiary text-center text-lg-start">

@@ -104,10 +104,10 @@
                                                             </button>
                                                         </li>
                                                         <li>
-                                                            <form action="{{ route('galerys.destroy',$galery->id) }}" method="POST">
+                                                            <form action="{{ route('galerys.destroy',$galery->id) }}" method="POST" class="delete-form"  data-image="{{ asset('storage/'.$galery->image) }}">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure want to delete this {{ $galery->nama_toko}}?'); ">
+                                                                <button type="submit" class="dropdown-item text-danger">
                                                                     <i class="bi bi-trash me-2"></i> Delete
                                                                 </button>
                                                             </form>
@@ -671,3 +671,54 @@
 </style>
 
 @endsection
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('.delete-form').forEach(form => {
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const image = form.dataset.image;
+
+            Swal.fire({
+                title: 'Delete this photo?',
+
+                imageUrl: image,
+                imageWidth: 400,
+                imageHeight: 250,
+                imageAlt: 'Gallery Image',
+
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+
+                confirmButtonColor: '#6f4e37',
+                cancelButtonColor: '#999',
+
+                background: '#fffaf5',
+                color: '#3e2723',
+
+                showClass: {
+                    popup: 'animate__animated animate__fadeInUp'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutDown'
+                }
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+
+        });
+
+    });
+
+});
+</script>
+@endpush
