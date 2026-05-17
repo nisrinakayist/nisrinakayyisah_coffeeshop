@@ -65,150 +65,237 @@
                             </div>
                         </form>
                         @endsection
-                        <div class="layout">
-                            @forelse ($galerys as $galery)
-                                <div class="card" style="width: 12rem;">
-                                    @if ($galery->image)
-                                        <img src="{{ asset('storage/'.$galery->image) }}" height="180" width="100" class="card-img-top">
-                                            @else
-                                            <span>No cover</span>
-                                            @endif
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $galery->nama_toko }}</h5>
-                                        <p class="card-text"> 
-                                            <div class="text-warning">
-                                                @for($i = 1; $i <= 5; $i++)
-                                                    @if($i <= $galery->rating)
-                                                        <i class="bi bi-star-fill"></i> 
-                                                    @else
-                                                        <i class="bi bi-star text-secondary"></i>
-                                                    @endif
-                                                @endfor
+                        <div class="container mt-4">
+                            <div class="row g-2 g-md-3">
+                                @forelse ($galerys as $galery)
+                                    <div class="col-6 col-sm-4">
+                                        <div class="position-relative">
+                                            
+                                            <div class="position-relative overflow-hidden ratio ratio-1x1 bg-dark rounded image-container" 
+                                                style="cursor: pointer; aspect-ratio: 1/1;"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#DetailModal{{ $galery->id }}">
+                                                
+                                                @if ($galery->image)
+                                                    <img src="{{ asset('storage/'.$galery->image) }}" class="w-100 h-100 object-fit-cover img-fluid" alt="Foto Kopi">
+                                                @else
+                                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center text-white">
+                                                        <span style="font-size: 0.8rem;">No cover</span>
+                                                    </div>           
+                                                @endif
+                                                
+                                                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center opacity-0 hover-overlay"
+                                                    style="background: rgba(0,0,0,0.4); transition: 0.3s;">
+                                                    <span class="text-white fw-bold fs-6 fs-md-5 d-flex align-items-center gap-1">
+                                                        <i class="bi bi-star-fill text-warning"></i> {{ $galery->rating }}
+                                                    </span>
+                                                </div>       
                                             </div>
-                                        </p>
-                                        <p class="card-text"> {{ $galery->review }}</p>
-                                        <div class="tom">
-                                            <div class="dropdown card-actions">
-                                                <button class="btn btn-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-three-dots-vertical"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li>
-                                                        <button  class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditModal{{ $galery->id }}">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-                                                            </svg>
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <form action="{{ route('galerys.destroy',$galery->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure want to delete this {{ $galery->nama_toko}}?'); ">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                                                    </svg>
+
+                                            <div class="position-absolute" style="top: 8px; end: 8px; z-index: 10;">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-dark btn-sm bg-opacity-75 border-0 rounded-circle py-1 px-2 text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 0.75rem;">
+                                                        <i class="bi bi-three-dots-vertical"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" style="font-size: 0.9rem;">
+                                                        <li>
+                                                            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditModal{{ $galery->id }}">
+                                                                <i class="bi bi-pencil me-2"></i> Edit
                                                             </button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
+                                                        </li>
+                                                        <li>
+                                                            <form action="{{ route('galerys.destroy',$galery->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure want to delete this {{ $galery->nama_toko}}?'); ">
+                                                                    <i class="bi bi-trash me-2"></i> Delete
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="DetailModal{{ $galery->id }}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border-0 shadow">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title fw-bold text-brown mb-0">
+                                                        <i class="bi bi-geo-alt-fill"></i> {{ $galery->nama_toko }}
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body p-4">
+                                                    @if ($galery->image)
+                                                        <img src="{{ asset('storage/'.$galery->image) }}" class="w-100 img-fluid rounded mb-3 object-fit-cover" style="max-height: 250px;" alt="Detail Kopi">
+                                                    @endif
+
+                                                    <div class="text-warning mb-3 fs-5 d-flex justify-content-center">
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            @if($i <= $galery->rating)
+                                                                <i class="bi bi-star-fill"></i>
+                                                            @else
+                                                                <i class="bi bi-star text-secondary"></i>
+                                                            @endif
+                                                        @endfor
+                                                    </div>
+
+                                                    <p class="text-dark bg-light p-3 rounded" style="font-size: 1rem; line-height: 1.5;">
+                                                        "{{ $galery->review }}"
+                                                    </p>
+
+                                                    <hr class="text-muted opacity-25">
+
+                                                    <div class="text-end">
+                                                        <small class="text-uppercase text-secondary fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                                            Uploaded on: {{ $galery->created_at->format('F d, Y') }}
+                                                        </small>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
-                                 
-                                <div class="modal fade" id="EditModal{{ $galery->id }}" tabindex="-1" aria-labelledby="EditModalLabel{{ $galery->id }}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="EditModalLabel{{ $galery->id }}">Edit</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                    <form action="{{ route('galerys.update', $galery->id ) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="mb-3">
-                                            <label for="inputImage" class="form-label">Image</label>
-                                            <br>
-                                            @if($galery->image)
-                                            <img src="{{ asset('storage/'.$galery->image) }}" width="120">
-                                            @endif
-                                            <br>
-                                            <br>
-                                            <input type="file" name="image">
-                                            <br>
 
-                                            <span class="input-text" id="inputToko">Nama Toko</span>
-                                            <select name="nama_toko" id="inputToko" class="form-control" value="{{ $galery->nama_toko }}" @error('nama_toko') is-invalid @enderror>
-                                                <option> -- Pilih Nama Toko --</option>
-                                                @foreach ($toko as $id => $nama)
-                                                <option value="{{ $nama }}" {{ $galery->nama_toko == $nama ? 'selected' : '' }}>{{ $nama }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('nama_toko')
-                                            <div id="inputToko" class="form-text text-danger">{{ $message }}</div>
-                                            @enderror
-
-                                            <label for="inputRating" class="form-label d-block text-white">Rating</label>
-                                                <div class="star-rating">
-                                                    @for($i = 5; $i >= 1; $i--)
-                                                        <input type="radio" id="aditstar{{ $i }}-{{ $galery->id }}" name="rating" value="{{ $i }}" {{ $galery->rating == $i ? 'checked' : '' }}>
-                                                        <label for="aditstar{{ $i }}-{{ $galery->id }}" title="{{ $i }} stars">
-                                                            <i class="bi bi-star-fill"></i>
-                                                        </label>
-                                                    @endfor
+                                    <div class="modal fade" id="EditModal{{ $galery->id }}" tabindex="-1" aria-labelledby="EditModalLabel{{ $galery->id }}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="EditModalLabel{{ $galery->id }}">Edit</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('galerys.update', $galery->id ) }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="mb-3">
+                                                            <label for="inputImage" class="form-label">Image</label>
+                                                            <br>
+                                                            @if($galery->image)
+                                                                <img src="{{ asset('storage/'.$galery->image) }}" width="120">
+                                                            @endif
+                                                            <br><br>
+                                                            <input type="file" name="image">
+                                                            <br><br>
 
-                                            <label for="inputReview" class="form-label">Review</label>
-                                            <input type="text" name="review" class="form-control" id="inputReview" value="{{ $galery->review }}"
-                                            @error('review') is-invalid @enderror>
+                                                            <span class="input-text" id="inputToko">Nama Toko</span>
+                                                            <select name="nama_toko" id="inputToko" class="form-control" @error('nama_toko') is-invalid @enderror>
+                                                                <option> -- Pilih Nama Toko --</option>
+                                                                @foreach ($toko as $id => $nama)
+                                                                    <option value="{{ $nama }}" {{ $galery->nama_toko == $nama ? 'selected' : '' }}>{{ $nama }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('nama_toko')
+                                                                <div id="inputToko" class="form-text text-danger">{{ $message }}</div>
+                                                            @enderror
 
+                                                            <label for="inputRating" class="form-label d-block text-white ">Rating</label>
+                                                            <div class="star-rating">
+                                                                @for($i = 5; $i >= 1; $i--)
+                                                                    <input type="radio" id="aditstar{{ $i }}-{{ $galery->id }}" name="rating" value="{{ $i }}" {{ $galery->rating == $i ? 'checked' : '' }}>
+                                                                    <label for="aditstar{{ $i }}-{{ $galery->id }}" title="{{ $i }} stars">
+                                                                        <i class="bi bi-star-fill"></i>
+                                                                    </label>
+                                                                @endfor
+                                                            </div>
+
+                                                            <label for="inputReview" class="form-label">Review</label>
+                                                            <input type="text" name="review" class="form-control" id="inputReview" value="{{ $galery->review }}" @error('review') is-invalid @enderror>
+                                                        </div>
+
+                                                        <button type="submit" class="btn btn-menu-add">Update</button>
+                                                    </form>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div> 
+                                @empty
+                                    <div class="col-12 text-center my-5">
+                                        <p class="text-muted fs-5">There are no data in your gallery feed.</p>
                                     </div>
-
-                                    <button type="submit" class="btn btn-menu-add">Update</button>
-
-                                </form>
-                                    </div>
-                                    
-                                    </div>
-                                </div>
-                                </div>  
-                            @empty
-                                <p>There are no data</p> 
-                            @endforelse
+                                @endforelse
+                            </div>
                         </div>
                 </div> 
                 {{ $galerys->links() }}
                     @elseif(Auth()->user()?->level == 'user')
-                        <div class="layout">
-                            @forelse ($galerys as $galery)
-                                <div class="card" style="width: 12rem;">
-                                    @if ($galery->image)
-                                        <img src="{{ asset('storage/'.$galery->image) }}" height="180" width="100" class="card-img-top">
-                                            @else
-                                                <span>No cover</span>
-                                            @endif
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $galery->nama_toko }}</h5>
-                                        <p class="card-text"> 
-                                            <div class="text-warning">
-                                                @for($i = 1; $i <= 5; $i++)
-                                                    @if($i <= $galery-> rating)
-                                                        <i class="bi bi-star-fill"></i> 
-                                                    @else
-                                                        <i class="bi bi-star text-secondary"></i>
-                                                    @endif
-                                                @endfor
+                     <div class="container mt-4">
+                            <div class="row g-2 g-md-3">
+                                @forelse ($galerys as $galery)
+                                    <div class="col-6 col-sm-4">
+                                        <div class="position-relative">
+                                            
+                                            <div class="position-relative overflow-hidden ratio ratio-1x1 bg-dark rounded image-container" 
+                                                style="cursor: pointer; aspect-ratio: 1/1;"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#DetailModal{{ $galery->id }}">
+                                                
+                                                @if ($galery->image)
+                                                    <img src="{{ asset('storage/'.$galery->image) }}" class="w-100 h-100 object-fit-cover img-fluid" alt="Foto Kopi">
+                                                @else
+                                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center text-white">
+                                                        <span style="font-size: 0.8rem;">No cover</span>
+                                                    </div>           
+                                                @endif
+                                                
+                                                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center opacity-0 hover-overlay"
+                                                    style="background: rgba(0,0,0,0.4); transition: 0.3s;">
+                                                    <span class="text-white fw-bold fs-6 fs-md-5 d-flex align-items-center gap-1">
+                                                        <i class="bi bi-star-fill text-warning"></i> {{ $galery->rating }}
+                                                    </span>
+                                                </div>       
                                             </div>
-                                        </p>
-                                        <p class="card-text"> {{ $galery->review }}</p>
+                                        </div>
                                     </div>
-                                </div> 
-                            @empty
-                                <p>There are no data</p> 
-                            @endforelse
+
+                                    <div class="modal fade" id="DetailModal{{ $galery->id }}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border-0 shadow">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title fw-bold text-brown mb-0">
+                                                        <i class="bi bi-geo-alt-fill"></i> {{ $galery->nama_toko }}
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body p-4">
+                                                    @if ($galery->image)
+                                                        <img src="{{ asset('storage/'.$galery->image) }}" class="w-100 img-fluid rounded mb-3 object-fit-cover" style="max-height: 250px;" alt="Detail Kopi">
+                                                    @endif
+
+                                                    <div class="text-warning mb-3 fs-5 d-flex justify-content-center">
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            @if($i <= $galery->rating)
+                                                                <i class="bi bi-star-fill"></i>
+                                                            @else
+                                                                <i class="bi bi-star text-secondary"></i>
+                                                            @endif
+                                                        @endfor
+                                                    </div>
+
+                                                    <p class="text-dark bg-light p-3 rounded" style="font-size: 1rem; line-height: 1.5;">
+                                                        "{{ $galery->review }}"
+                                                    </p>
+
+                                                    <hr class="text-muted opacity-25">
+
+                                                    <div class="text-end">
+                                                        <small class="text-uppercase text-secondary fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                                            Uploaded on: {{ $galery->created_at->format('F d, Y') }}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+ 
+                                @empty
+                                    <div class="col-12 text-center my-5">
+                                        <p class="text-muted fs-5">There are no data in your gallery feed.</p>
+                                    </div>
+                                @endforelse
+                            </div>
                         </div>
                         {{ $galerys->links() }}
                     @endif
@@ -442,6 +529,9 @@
         justify-content: center;
         flex-wrap: wrap;
         margin-top: 25px;
+    }
+   .image-container:hover .hover-overlay {
+        opacity: 1 !important;
     }
 
     /* ================= TABLET ================= */

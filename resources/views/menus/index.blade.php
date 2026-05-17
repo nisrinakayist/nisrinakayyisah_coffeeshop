@@ -6,6 +6,38 @@
         <div class="col-md-10">
             <div>
                 <div class="label">{{ __('My Whislist Menu') }}</div>
+                <form action="{{ route('menus.index') }}" method="GET" class="mb-4">
+                    <div class="input-group mb-3">
+                        <input type="text" name="search" class="form-control"
+                            placeholder="Cari menu kopi"
+                            value="{{ request('search') }}">
+                        <button class="btn btn-brown text-white" type="submit">Cari</button>
+                        @if(request('search') || request('kategori'))
+                            <a href="{{ route('menus.index') }}" class="btn btn-outline-secondary"></a>
+                        @endif
+                    </div>
+                    <div>
+                        <span class="d-block text-muted mb-2"><i class="fas fa-filter"></i>Kategori Populer:</span>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="{{ route('menus.index') }}" 
+                                class="btn btn-sm {{ !request('kategori') ? 'btn-brown text-white' : 'btn-outline-secondary' }}">
+                                Semua Kopi
+                            </a>
+                            <a href="?kategori=latte&search={{ request('search') }}"
+                                class="btn btn-sm {{ request('kategori') == 'susu'  ? 'btn-brown text-white' : 'btn-outline-secondary'}}">
+                                Latte
+                            </a>
+                            <a href="?kategori=espresso&search={{ request('search') }}"
+                                class="btn btn-sm {{ request('kategori') == 'hitam'  ? 'btn-brown text-white' : 'btn-outline-secondary'}}">
+                                Espresso
+                            </a>
+                            <a href="?kategori=es&search={{ request('search') }}"
+                                class="btn btn-sm {{ request('kategori') == 'es'  ? 'btn-brown text-white' : 'btn-outline-secondary'}}">
+                                Ice Coffee Series
+                            </a>
+                        </div>
+                    </div>
+                </form>
 
                 <div class="card-body">
                     @if(Auth()->user()?->level == 'admin')

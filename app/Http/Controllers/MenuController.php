@@ -12,9 +12,30 @@ class MenuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $menus = Menu::latest()->paginate(5);
+        
+
+        $search = $request->get('search');
+        $kategori = $request->get('kategori');
+
+        $query = Menu::query();
+
+        if ($kategori) {
+            $query->where(function($q) use ($kategori) {
+                $q->where('jenis', 'LIKE', "%{kategori}%")
+                  ->orWhere('description', 'LIKE', "%{$kategori}%");
+            });
+        }
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('jenis', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $menus = $query->latest()->paginate(5)->appends($request->all());
         return view('menus.index', compact('menus'))
         ->with( (request()->input('page', 1) -2)* 5);
     }
